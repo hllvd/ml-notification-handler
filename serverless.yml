@@ -1,0 +1,18 @@
+service: aws-ml-notification-handler
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: sa-east-1
+
+functions:
+  api:
+    handler: src/index.handler
+    environment:
+      QUEUE_URL: https://sqs.sa-east-1.amazonaws.com/797163826126/ml-notifications
+    events:
+      - httpApi: "*"
+
+plugins:
+  - serverless-offline
+  - serverless-lift

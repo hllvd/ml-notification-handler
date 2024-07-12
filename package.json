@@ -1,0 +1,39 @@
+{
+  "name": "my-webpack-project",
+  "version": "1.0.0",
+  "description": "My webpack project",
+  "author": "Hudson Van-Dal <vandal.hudson@gmail.com>",
+  "license": "MIT",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "webpack --mode=production --node-env=production",
+    "start": "nodemon --watch src -e js,jsx --exec \"rimraf dist && npx kill-port 3000 3001 3002 && serverless offline start\"",
+    "start_old": "rimraf dist && tsc && npx kill-port 3000 3001 3002 && serverless offline start",
+    "kill": "kill -9 $(lsof -ti:3000,3001)",
+    "stop": "serverless offline stop",
+    "deploy": "rimraf dist &&  serverless deploy",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch"
+  },
+  "dependencies": {
+    "@aws-sdk/client-sqs": "^3.427.0",
+    "aws-sdk": "^2.1454.0",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "serverless": "^3.34.0",
+    "serverless-http": "^3.2.0"
+  },
+  "devDependencies": {
+    "@aws-sdk/smithy-client": "^3.374.0",
+    "@webpack-cli/generators": "^3.0.7",
+    "chai": "^4.3.9",
+    "mocha": "^10.2.0",
+    "nodemon": "^3.0.1",
+    "rimraf": "^4.4.0",
+    "serverless-lift": "^1.28.0",
+    "serverless-offline": "^12.0.4",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
