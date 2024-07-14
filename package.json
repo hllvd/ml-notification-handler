@@ -1,39 +1,41 @@
 {
-  "name": "my-webpack-project",
+  "name": "ml-notification-handler",
   "version": "1.0.0",
-  "description": "My webpack project",
+  "description": "shipment notification handler",
   "author": "Hudson Van-Dal <vandal.hudson@gmail.com>",
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "src/app.js",
   "scripts": {
-    "build": "webpack --mode=production --node-env=production",
-    "start": "nodemon --watch src -e js,jsx --exec \"rimraf dist && npx kill-port 3000 3001 3002 && serverless offline start\"",
-    "start_old": "rimraf dist && tsc && npx kill-port 3000 3001 3002 && serverless offline start",
+    "build": "rimraf dist && tsc",
+    "start": "nodemon --watch src -e ts --exec \"rimraf dist && tsc && npx kill-port 3000 3001 3002 && node dist/app.js \" ",
     "kill": "kill -9 $(lsof -ti:3000,3001)",
-    "stop": "serverless offline stop",
-    "deploy": "rimraf dist &&  serverless deploy",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch"
   },
   "dependencies": {
-    "@aws-sdk/client-sqs": "^3.427.0",
+    "@aws-sdk/client-sqs": "^3.614.0",
     "aws-sdk": "^2.1454.0",
     "body-parser": "^1.20.2",
     "express": "^4.18.2",
-    "serverless": "^3.34.0",
-    "serverless-http": "^3.2.0"
+    "node-rsa": "^1.1.1",
+    "reflect-metadata": "^0.2.1"
   },
   "devDependencies": {
     "@aws-sdk/smithy-client": "^3.374.0",
-    "@webpack-cli/generators": "^3.0.7",
+    "@types/node-rsa": "^1.1.2",
     "chai": "^4.3.9",
     "mocha": "^10.2.0",
     "nodemon": "^3.0.1",
     "rimraf": "^4.4.0",
-    "serverless-lift": "^1.28.0",
-    "serverless-offline": "^12.0.4",
-    "webpack": "^5.93.0",
-    "webpack-cli": "^5.1.4"
+    "@types/body-parser": "^1.19.3",
+    "@types/chai": "^4.3.6",
+    "@types/express": "^4.17.18",
+    "@types/express-validator": "^3.0.0",
+    "@types/jest": "^29.5.5",
+    "dotenv": "^16.4.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
   }
 }
+
