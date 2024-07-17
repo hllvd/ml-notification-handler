@@ -1,8 +1,10 @@
 import { SendMessageCommand, SQSClient } from "@aws-sdk/client-sqs"
+import fs from "fs"
 import * as dotenv from "dotenv"
+import notificationService from "../service/notification.service"
 dotenv.config()
 
-const notification = async (req, res) => {
+const Receiver = async (req, res) => {
   console.log("here")
   if (req.query.token !== "2d2aedde-728c-473c-a1a2-cfaef52057f4")
     res.json({ error: "Invalid token" })
@@ -23,6 +25,15 @@ const notification = async (req, res) => {
   try {
     const response = await sqsClient.send(command)
     res.json({})
+    /**
+     * # Hack context
+     * While ML response should be under 500ms, we need to wait for
+     * a while to get messages from the queue.
+     * In other words, performance here is important
+     */
+    setTimeout(async () => {
+      notificationService.processMessages()
+    }, 20000)
   } catch (error) {
     console.error("Error sending message:", error)
     res.status(500).json({ error: "Error sending message" })
@@ -30,5 +41,5 @@ const notification = async (req, res) => {
 }
 
 export default {
-  notification,
+  Receiver,
 }
