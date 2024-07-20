@@ -1,0 +1,15 @@
+import "dotenv/config"
+export const {
+  MY_USER_ID,
+  ML_REDIRECT_URI,
+  ML_CLIENT_ID,
+  ML_CLIENT_SECRET,
+  ML_CALLBACK_URL,
+  ML_APP_ID,
+  ML_SITE_ID,
+  AWS_DDB_HOST,
+  AWS_DDB_NAME,
+  AWS_REGION,
+  AWS_ACCESS_KEY_ID,
+  AWS_SECRET_ACCESS_KEY,
+} = process.env

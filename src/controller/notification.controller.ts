@@ -1,10 +1,10 @@
 import { SendMessageCommand, SQSClient } from "@aws-sdk/client-sqs"
 import fs from "fs"
 import * as dotenv from "dotenv"
-import notificationService from "../service/notification.service"
+import notificationService from "../service/message-processing.service"
 dotenv.config()
 
-const Receiver = async (req, res) => {
+const receiver = async (req, res) => {
   console.log("here")
   if (req.query.token !== "2d2aedde-728c-473c-a1a2-cfaef52057f4")
     res.json({ error: "Invalid token" })
@@ -23,7 +23,7 @@ const Receiver = async (req, res) => {
   const command = new SendMessageCommand(input)
 
   try {
-    const response = await sqsClient.send(command)
+    await sqsClient.send(command)
     res.json({})
     /**
      * # Hack context
@@ -41,5 +41,5 @@ const Receiver = async (req, res) => {
 }
 
 export default {
-  Receiver,
+  receiver,
 }
