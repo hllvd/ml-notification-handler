@@ -38,6 +38,9 @@ const sendMessageToBuyerFromShipment = async ({ shipmentId, userId }) => {
     shipmentId,
     userId,
   })
+  if (responseFromShipment.status_history?.date_delivered === null)
+    return { message: "Entrega não realizada" }
+
   const responseFromOrder = await getOrderByOrderId({
     orderId: responseFromShipment.order_id,
     userId,

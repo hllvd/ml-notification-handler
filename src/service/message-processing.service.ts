@@ -37,8 +37,8 @@ async function processMessages() {
           `
         fs.appendFileSync(outputFilePath, `${msg}\n\n `)
         const shipmentPattern = /^\/shipments\/(\d+)$/
-        const match = resource.match(shipmentPattern)
-        if (match) {
+        const matchShipmentResource = resource.match(shipmentPattern)
+        if (matchShipmentResource) {
           const shipmentId = resource.replace(/\D/g, "")
           const messageResponse = sendMessageToBuyerFromShipment({
             userId,
