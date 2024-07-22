@@ -50,7 +50,7 @@ const fetchMl = async (url: string, options: FetchMlOptionsModel = {}) => {
         await authMlService.reAuthentication(refreshToken)
         counter++
       }
-      return e.response.data
+      return e?.response?.data
     }
   }
 }
