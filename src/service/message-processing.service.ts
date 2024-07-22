@@ -26,9 +26,14 @@ async function processMessages() {
     const messages = data.Messages
     const homeDir = process.env.HOME || process.env.USERPROFILE
     const outputFilePath = path.join(homeDir, "logs.output.txt")
+    const outputFilePathRaw = path.join(homeDir, "logs-raw.output.txt")
 
     if (messages) {
       for (const message of messages) {
+        fs.appendFileSync(
+          outputFilePathRaw,
+          `${JSON.stringify(message.Body)}\n `
+        )
         const messageInJsonFormat = JSON.parse(message.Body)
         const { resource, topic, userId } = messageInJsonFormat
         const msg = `
