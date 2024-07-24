@@ -14,6 +14,9 @@ jobs:
         env: # Set the secret as an input
           EC2_PRIVATE_KEY_BASE64: ${{ secrets.EC2_PRIVATE_KEY_BASE64 }}
           TEST: This is a test
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+
+      - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Set up SSH
@@ -27,3 +30,4 @@ jobs:
           chmod 600 ~/sao_paulo.pem
           echo "StrictHostKeyChecking no" >> ~/.ssh/config
           echo ~/sao_paulo.pem
+          ping $EC2_HOST
