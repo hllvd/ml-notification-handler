@@ -1,0 +1,30 @@
+name: SSH to EC2
+
+on:
+  push:
+    branches:
+      - main # Triggers the workflow on pushes to the main branch
+
+jobs:
+  ssh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo "StrictHostKeyChecking no" >> ~/.ssh/config
+
+      - name: Connect to EC2 instance
+        run: |
+          ssh -i ~/.ssh/id_rsa ec2-user@${{ secrets.EC2_HOST }} << 'EOF'
+            # Commands to run on the EC2 instance
+            echo "Connected to EC2 instance!"
+            touch ~/new-file.txt
+            # You can add more commands here
+          EOF
