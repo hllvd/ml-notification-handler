@@ -13,15 +13,18 @@ jobs:
       - name: Checkout code
         env: # Set the secret as an input
           EC2_SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          TEST: This is a test
         uses: actions/checkout@v2
 
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
+          echo "$TEST"
+          echo "$EC2_SSH_PUBLIC_KEY" > ~/.ssh/authorized_keys
           echo "$EC2_SSH_PRIVATE_KEY" > ~/sao_paulo.pem
+          stat ~/sao_paulo.pem
           chmod 600 ~/sao_paulo.pem
           echo "StrictHostKeyChecking no" >> ~/.ssh/config
-          stat -c "%s" ~/sao_paulo.pem
 
       - name: Connect to EC2 instance
         run: |
