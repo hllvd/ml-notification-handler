@@ -21,17 +21,9 @@ jobs:
           mkdir -p ~/.ssh
           echo "Printing test: "
           echo "$TEST"
-          echo $EC2_PRIVATE_KEY_BASE64 | base64 --decode > ~/sao_paulo.pem
+          # echo $EC2_PRIVATE_KEY_BASE64 | base64 --decode > ~/sao_paulo.pem
+          echo "teste-teste-teste" > ~/sao_paulo.pem
           du -h ~/sao_paulo.pem
           chmod 600 ~/sao_paulo.pem
           echo "StrictHostKeyChecking no" >> ~/.ssh/config
-
-      - name: Connect to EC2 instance
-        run: |
-          echo "52.67.200.54"
-          ssh -o StrictHostKeyChecking=no -v -i ~/sao_paulo.pem ec2-user@52.67.200.54 << 'EOF'
-            # Commands to run on the EC2 instance
-            echo "Connected to EC2 instance!"
-            touch ~/new-file.txt
-            # You can add more commands here
-          EOF
+          echo ~/sao_paulo.pem
