@@ -21,7 +21,7 @@ jobs:
           echo "$EC2_SSH_PRIVATE_KEY" > ~/sao_paulo.pem
           chmod 600 ~/sao_paulo.pem
           echo "StrictHostKeyChecking no" >> ~/.ssh/config
-          ls -lh ~/sao_paulo.pem
+          stat -c "%s" ~/sao_paulo.pem
 
       - name: Connect to EC2 instance
         run: |
