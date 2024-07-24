@@ -22,11 +22,12 @@ jobs:
           chmod 600 ~/sao_paulo.pem
           echo "StrictHostKeyChecking no" >> ~/.ssh/config
           ls -lh ~/sao_paulo.pem
+          ssh-keygen -R 52.67.200.54
 
       - name: Connect to EC2 instance
         run: |
           echo "52.67.200.54"
-          ssh -i ~/sao_paulo.pem ec2-user@52.67.200.54 << 'EOF'
+          ssh -o StrictHostKeyChecking=no -v -i ~/sao_paulo.pem ec2-user@52.67.200.54 << 'EOF'
             # Commands to run on the EC2 instance
             echo "Connected to EC2 instance!"
             touch ~/new-file.txt
