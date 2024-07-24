@@ -11,19 +11,22 @@ jobs:
 
     steps:
       - name: Checkout code
+        env: # Set the secret as an input
+          EC2_SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
         uses: actions/checkout@v2
 
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "$EC2_SSH_PRIVATE_KEY" > ~/sao_paulo.pem
+          chmod 600 ~/sao_paulo.pem
           echo "StrictHostKeyChecking no" >> ~/.ssh/config
+          ls -l ~/sao_paulo.pem
 
       - name: Connect to EC2 instance
         run: |
           echo "52.67.200.54"
-          ssh -i ~/.ssh/id_rsa ec2-user@52.67.200.54 << 'EOF'
+          ssh -i ~/sao_paulo.pem ec2-user@52.67.200.54 << 'EOF'
             # Commands to run on the EC2 instance
             echo "Connected to EC2 instance!"
             touch ~/new-file.txt
