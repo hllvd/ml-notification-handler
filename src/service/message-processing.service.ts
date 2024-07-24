@@ -45,7 +45,7 @@ async function processMessages() {
         const matchShipmentResource = resource.match(shipmentPattern)
         if (matchShipmentResource) {
           const shipmentId = resource.replace(/\D/g, "")
-          const messageResponse = sendMessageToBuyerFromShipment({
+          const messageResponse = await sendMessageToBuyerFromShipment({
             userId,
             shipmentId,
           })

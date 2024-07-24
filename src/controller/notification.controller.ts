@@ -24,7 +24,7 @@ const receiver = async (req, res) => {
 
   try {
     await sqsClient.send(command)
-    res.json({})
+
     /**
      * # Hack context
      * While ML response should be under 500ms, we need to wait for
@@ -32,11 +32,13 @@ const receiver = async (req, res) => {
      * In other words, performance here is important
      */
     setTimeout(async () => {
-      notificationService.processMessages()
-    }, 20000)
+      await notificationService.processMessages()
+    }, 10000)
+
+    res.json({})
   } catch (error) {
     console.error("Error sending message:", error)
-    res.status(500).json({ error: "Error sending message" })
+    res.status(500).json({ error: "Error sending message", ...error })
   }
 }
 
