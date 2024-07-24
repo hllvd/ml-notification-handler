@@ -10,15 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - uses: actions/checkout@v2
+      - name: Retrieve secret from vault
         env: # Set the secret as an input
           EC2_PRIVATE_KEY_BASE64: ${{ secrets.EC2_PRIVATE_KEY_BASE64 }}
           TEST: This is a test
-        uses: actions/checkout@v2
 
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
+          echo "Printing test: "
           echo "$TEST"
           echo $EC2_PRIVATE_KEY_BASE64 | base64 --decode > ~/sao_paulo.pem
           du -h ~/sao_paulo.pem
