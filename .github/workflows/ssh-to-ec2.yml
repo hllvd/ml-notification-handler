@@ -22,7 +22,6 @@ jobs:
           chmod 600 ~/sao_paulo.pem
           echo "StrictHostKeyChecking no" >> ~/.ssh/config
           ls -lh ~/sao_paulo.pem
-          ssh-keygen -R 52.67.200.54
 
       - name: Connect to EC2 instance
         run: |
