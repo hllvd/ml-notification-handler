@@ -21,7 +21,6 @@ jobs:
           chmod 600 ~/sao_paulo.pem
           echo "StrictHostKeyChecking no" >> ~/.ssh/config
           echo ~/sao_paulo.pem
-          ping ${{ vars.EC2_HOST }}
 
       - name: Connect to EC2 instance
         run: |
