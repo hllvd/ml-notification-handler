@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
       - name: Retrieve secret from vault
         env: # Set the secret as an input
           EC2_PRIVATE_KEY_BASE64: ${{ secrets.EC2_PRIVATE_KEY_BASE64 }}
           TEST: This is a test
+        uses: actions/checkout@v2
 
       - name: Set up SSH
         run: |
