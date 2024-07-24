@@ -22,7 +22,7 @@ jobs:
           echo "$TEST"
           echo "$EC2_SSH_PUBLIC_KEY" > ~/.ssh/authorized_keys
           echo "$EC2_SSH_PRIVATE_KEY" > ~/sao_paulo.pem
-          stat ~/sao_paulo.pem
+          du -h ~/sao_paulo.pem
           chmod 600 ~/sao_paulo.pem
           echo "StrictHostKeyChecking no" >> ~/.ssh/config
 
