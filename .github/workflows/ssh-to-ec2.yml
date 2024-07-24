@@ -28,6 +28,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -v -i ~/sao_paulo.pem ec2-user@52.67.200.54 << 'EOF'
             # Commands to run on the EC2 instance
             echo "Connected to EC2 instance!"
-            touch ~/new-file.txt
-            # You can add more commands here
+            cd ml-notification-handler
+            git pull
+            pm2 reset 0
           EOF
