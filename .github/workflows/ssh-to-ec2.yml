@@ -36,10 +36,10 @@ jobs:
           mkdir -p ~/.ssh
           echo "Printing test: "
           echo "$TEST"
-          # echo $EC2_PRIVATE_KEY_BASE64 | base64 --decode > ~/sao_paulo.pem
+          # echo "${{ secrets.EC2_PRIVATE_KEY_BASE64 }}" | base64 --decode > ~/sao_paulo.pem
           echo "teste-teste-teste" > ~/sao_paulo.pem
           du -h ~/sao_paulo.pem
           chmod 600 ~/sao_paulo.pem
           echo "StrictHostKeyChecking no" >> ~/.ssh/config
           echo ~/sao_paulo.pem
-          ping $EC2_HOST
+          ping ${{ vars.EC2_HOST }}
