@@ -16,9 +16,17 @@ jobs:
           TEST: This is a test
           EC2_HOST: ${{ secrets.EC2_HOST }}
 
-      - name: Checkout code
         uses: actions/checkout@v2
-
+      - name: see secrets
+        run: echo "${{ secrets.EC2_PRIVATE_KEY_BASE64 }}"
+      - name: see unset secrets
+        run: echo "${{ secrets.EC2_PRIVATE_KEY_BASE64_ }}"
+      - name: see variables
+        run: echo "${{ vars.EC2_PRIVATE_KEY_BASE64 }}"
+      - name: see unset variables
+        run: echo "${{ vars.EC2_PRIVATE_KEY_BASE64_ }}"
+      - name: see secrets
+        run: echo "${{ secrets.EC2_PRIVATE_KEY_BASE64 }}"
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
