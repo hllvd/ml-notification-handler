@@ -5,7 +5,7 @@ import notificationService from "../service/message-processing.service"
 dotenv.config()
 
 const receiver = async (req, res) => {
-  console.log("here")
+  console.log("Init receiver")
   if (req.query.token !== "2d2aedde-728c-473c-a1a2-cfaef52057f4")
     res.json({ error: "Invalid token" })
 
@@ -19,10 +19,11 @@ const receiver = async (req, res) => {
     QueueUrl: process.env.QUEUE_URL,
     MessageBody: payloadSerialized,
   }
-
+  console.log("Preparing command")
   const command = new SendMessageCommand(input)
 
   try {
+    console.log("Sending message")
     await sqsClient.send(command)
 
     /**
@@ -32,7 +33,7 @@ const receiver = async (req, res) => {
      * In other words, performance here is important
      */
     setTimeout(async () => {
-      await notificationService.processMessages()
+      // await notificationService.processMessages()
     }, 10000)
 
     res.json({})
