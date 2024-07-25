@@ -10,11 +10,10 @@ const getShipmentByShipmentId = async ({
   shipmentId: string
   userId: string
 }): Promise<ShipmentApiResponseModel> => {
-  const shipmentIDString = shipmentId.toString()
   const options: FetchMlOptionsModel = {
     userId,
   }
-  const r = await fetchMl(`/shipments/${shipmentIDString}`, options)
+  const r = await fetchMl(`/shipments/${shipmentId}`, options)
   return r
 }
 
@@ -25,7 +24,7 @@ const getOrderByOrderId = async ({
   orderId: string
   userId: string
 }): Promise<any> => {
-  const shipmentIDString = orderId.toString()
+  const shipmentIDString = orderId
   const options: FetchMlOptionsModel = {
     userId,
   }
@@ -38,14 +37,15 @@ const sendMessageToBuyerFromShipment = async ({ shipmentId, userId }) => {
     shipmentId,
     userId,
   })
+  console.log("responseFromShipment", responseFromShipment)
   if (responseFromShipment.status_history?.date_delivered === null)
     return { message: "Entrega não realizada" }
 
   const responseFromOrder = await getOrderByOrderId({
-    orderId: responseFromShipment.order_id,
+    orderId: responseFromShipment?.order_id,
     userId,
   })
-
+  console.log("responseFromOrder", responseFromOrder)
   const packId = responseFromOrder?.pack_id || responseFromShipment?.order_id
   const msg =
     "Olá! Esperamos que tenha gostado do seu produto! Sua opinião é muito importante para nós. Por favor, considere deixar uma avaliação no Mercado Livre. Obrigado!"

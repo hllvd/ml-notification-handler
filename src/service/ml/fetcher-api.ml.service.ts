@@ -1,3 +1,4 @@
+import { AxiosError, isAxiosError } from "axios"
 import { HttpResponseError } from "../../models/errors/http-response.Error"
 import { FetchMlOptionsModel } from "../../models/fetch-ml-options.model"
 import {
@@ -36,17 +37,18 @@ const fetchMl = async (url: string, options: FetchMlOptionsModel = {}) => {
       })
       return result
     } catch (e) {
-      if (e instanceof HttpResponseError) {
+      if (isAxiosError(e)) {
         const refreshTokenTtl = await _getAppConfigValueFromKey(
           userId,
           "refresh_token_ttl"
         )
+        console.log(" ", refreshTokenTtl)
         if ((refreshTokenTtl as number) < 1) return
         const refreshToken = await _getAppConfigValueFromKey(
           userId,
           "refresh_token"
         )
-        console.log("refreshTokenTtl", refreshTokenTtl)
+        console.log("refreshToken", refreshToken)
         await authMlService.reAuthentication(refreshToken)
         counter++
       }
