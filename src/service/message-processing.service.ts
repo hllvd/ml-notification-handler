@@ -10,7 +10,13 @@ import { sendMessageToBuyerFromShipment } from "./ml/api/shipments"
 
 dotenv.config()
 
-const sqsClient = new SQSClient({ region: "sa-east-1" })
+const sqsClient = new SQSClient({
+  region: "sa-east-1",
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_ACCESS_KEY,
+  },
+})
 const queueUrl = process.env.QUEUE_URL
 
 async function processMessages() {
