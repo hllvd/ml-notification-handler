@@ -16,7 +16,13 @@ const receiver = async (req, res) => {
   const payload = { ...body, created }
   const payloadStr = JSON.stringify(payload)
   const payloadSerialized = payloadStr
-  const sqsClient = new SQSClient({ region: "sa-east-1" })
+  const sqsClient = new SQSClient({
+    region: "sa-east-1",
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_ACESS_KEY,
+    },
+  })
 
   console.log("Before file")
   const homeDir = process.env.HOME || process.env.USERPROFILE
