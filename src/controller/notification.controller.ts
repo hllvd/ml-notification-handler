@@ -1,5 +1,6 @@
 import { SendMessageCommand, SQSClient } from "@aws-sdk/client-sqs"
-import fs from "fs"
+import * as fs from "fs"
+import * as path from "path"
 import * as dotenv from "dotenv"
 import notificationService from "../service/message-processing.service"
 dotenv.config()
@@ -14,6 +15,11 @@ const receiver = async (req, res) => {
   const payload = { ...body, created }
   const payloadSerialized = JSON.stringify(payload)
   const sqsClient = new SQSClient({ region: "sa-east-1" })
+
+  const homeDir = process.env.HOME || process.env.USERPROFILE
+  const outputFilePath = path.join(homeDir, "post.input.txt")
+  fs.appendFileSync(outputFilePath, body)
+  fs.appendFileSync(outputFilePath, ` ----------------- \n\n`)
 
   const input = {
     QueueUrl: process.env.QUEUE_URL,
@@ -33,7 +39,7 @@ const receiver = async (req, res) => {
      * In other words, performance here is important
      */
     setTimeout(async () => {
-      // await notificationService.processMessages()
+      await notificationService.processMessages()
     }, 10000)
 
     res.json({})
