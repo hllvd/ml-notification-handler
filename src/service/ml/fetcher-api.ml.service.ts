@@ -13,8 +13,10 @@ const fetchMl = async (url: string, options: FetchMlOptionsModel = {}) => {
   const { data, method, userId }: FetchMlOptionsModel = options
   const retry = 3
   let counter = 0
+  let response: any
 
   while (counter < retry) {
+    console.log("counter retries", counter)
     try {
       const userAccessToken = await _getAppConfigValueFromKey(
         userId,
@@ -52,9 +54,10 @@ const fetchMl = async (url: string, options: FetchMlOptionsModel = {}) => {
         await authMlService.reAuthentication(refreshToken)
         counter++
       }
-      return e?.response?.data
+      response = e?.response?.data
     }
   }
+  return response
 }
 
 const _getAppConfigValueFromKey = async (userId: string, key: string) => {
