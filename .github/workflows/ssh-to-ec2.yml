@@ -24,9 +24,9 @@ jobs:
 
       - name: Connect to EC2 instance
         run: |
-          echo "connecting to ${{ vars.EC2_HOST }}"
+          echo "connecting to ${{ secrets.EC2_HOST }}"
           sudo apt-get install sshpass
-          sshpass -p "${{ vars.ML_VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no -v -i ~/sao_paulo.pem mercadolivre@82.112.250.227 << 'EOF'
+          sshpass -p "${{ secrets.ML_VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no -v -i ~/sao_paulo.pem mercadolivre@${{EC2_HOST}} << 'EOF'
             # Commands to run on the EC2 instance
             echo "Connected to EC2 instance!"
             cd ml-notification-handler
