@@ -11,9 +11,9 @@ const setAppConfig = async ({
 }) => {
   await appConfigRepository
     .upsert({
-      clientId: domain,
-      configKey: key,
-      configValue: value,
+      clientId: domain.toString(),
+      configKey: key.toString(),
+      configValue: value.toString(),
     })
     .go()
 }
@@ -37,8 +37,8 @@ const getAppConfig = async ({
 }) => {
   return await appConfigRepository
     .get({
-      clientId: domain,
-      configKey: key,
+      clientId: domain.toString(),
+      configKey: key.toString(),
     })
     .go()
 }
