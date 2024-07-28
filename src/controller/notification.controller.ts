@@ -8,8 +8,10 @@ dotenv.config()
 
 const receiver = async (req, res) => {
   console.log("Init receiver")
-  if (req.query.token !== "2d2aedde-728c-473c-a1a2-cfaef52057f4")
+  if (req.query.token !== "2d2aedde-728c-473c-a1a2-cfaef52057f4") {
     res.json({ error: "Invalid token" })
+    return
+  }
 
   const body: notificationModel = req.body
   const entityShipment = "shipments"
@@ -25,16 +27,17 @@ const receiver = async (req, res) => {
    * Because of ML response should be under 500ms, we need to decouple this sending message task
    */
   console.log("before settimeout")
-  // setTimeout(async () => {
-  //   for await (const obj of ndJsonReadAll(entityShipment)) {
-  //     const { user_id: userId, topic, resource }: notificationModel = obj
-  //     const shipmentId = getOnlyNumbers(resource)
-  //     if (!shipmentId) break
-  //     console.log("SENDING_MESSAGE", resource, userId, shipmentId, topic)
-  //     //const r = await sendMessageToBuyerFromShipment({ userId, shipmentId })
-  //     //console.log(r)
-  //   }
-  // }, 5000)
+  setTimeout(async () => {
+    for await (const obj of ndJsonReadAll(entityShipment)) {
+      const { user_id: userId, topic, resource }: notificationModel = obj
+      const shipmentId = getOnlyNumbers(resource)
+      if (!shipmentId) break
+      console.log("SENDING_MESSAGE", resource, userId, shipmentId, topic)
+      const r = await sendMessageToBuyerFromShipment({ userId, shipmentId })
+      console.log(r)
+      await ndJsonWrite({ filename: "messages-sent", jsonObjRow: r })
+    }
+  }, 5000)
 
   res.json({})
 }
