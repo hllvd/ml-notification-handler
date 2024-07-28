@@ -7,7 +7,7 @@
   "main": "src/app.js",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "start": "nodemon --watch src -e ts --exec \"rimraf dist && tsc && node dist/app.js \" ",
+    "start": "nodemon --watch src -e ts --exec \"rimraf dist && tsc && node --max-old-space-size=4096 dist/app.js \" ",
     "dev": "nodemon --watch src -e ts --exec \"rimraf dist && tsc && npx kill-port 3000 3001 3002 && node dist/app.js \" ",
     "kill": "kill -9 $(lsof -ti:3000,3001)",
     "build:dev": "webpack --mode=development",
