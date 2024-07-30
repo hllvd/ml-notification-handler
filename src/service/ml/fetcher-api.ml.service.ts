@@ -52,8 +52,8 @@ const fetchMl = async (url: string, options: FetchMlOptionsModel = {}) => {
         )
         console.log("refreshToken", refreshToken)
         await authMlService.reAuthentication(refreshToken)
-        counter++
       }
+      counter++
       response = e?.response?.data
     }
   }
