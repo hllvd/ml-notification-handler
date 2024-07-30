@@ -11,6 +11,7 @@ import authMlService from "./auth.ml.service"
 const base_url = "https://api.mercadolibre.com"
 const fetchMl = async (url: string, options: FetchMlOptionsModel = {}) => {
   const { data, method, userId }: FetchMlOptionsModel = options
+  if (!userId) throw new Error("userId is required")
   const retry = 3
   let counter = 0
   let response: any
