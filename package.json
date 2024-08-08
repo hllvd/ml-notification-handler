@@ -1,6 +1,6 @@
 {
   "name": "ml-notification-handler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "shipment notification handler",
   "author": "Hudson Van-Dal <vandal.hudson@gmail.com>",
   "license": "MIT",
