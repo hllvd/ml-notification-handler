@@ -4,7 +4,6 @@ module.exports = {
       name: "ml-notification-with-health-checker",
       script: "npm",
       args: "run start",
-      cmd: "/home/mercadolivre/ml-notification-handler",
       watch: true,
       exec_mode: "fork",
       instances: 1,
