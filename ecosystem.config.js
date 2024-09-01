@@ -12,11 +12,11 @@ module.exports = {
       env: {
         NODE_ENV: "production",
       },
-      health_check: {
-        http_url: "http://localhost:3000/test",
-        interval: 600000,
-        max_retries: 2,
-      },
+      // health_check: {
+      //   http_url: "http://localhost:3000/test",
+      //   interval: 600000,
+      //   max_retries: 2,
+      // },
     },
   ],
 }
