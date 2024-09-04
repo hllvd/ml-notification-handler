@@ -33,7 +33,9 @@ const test = async (req: Request, res: Response) => {
   // }
   // res.status(200).json({ ...r })
 }
+const healthCheck = (req: Request, res: Response) => res.json({})
 
 export default {
   test,
+  healthCheck,
 }

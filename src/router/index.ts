@@ -6,5 +6,6 @@ const router = Router()
 
 router.post("/notification", notificationController.receiver)
 router.get("/test", messageController.test)
+router.get("/health-check", messageController.healthCheck)
 
 export default router
