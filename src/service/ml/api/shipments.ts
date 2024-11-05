@@ -48,7 +48,7 @@ const sendMessageToBuyerFromShipment = async ({ shipmentId, userId }) => {
   console.log("responseFromOrder", responseFromOrder)
   const packId = responseFromOrder?.pack_id || responseFromShipment?.order_id
   const msg =
-    "Olá! Esperamos que tenha gostado do seu produto! Sua opinião é muito importante para nós. Por favor, considere deixar uma avaliação no Mercado Livre. Obrigado!"
+    "Olá, vi que seu pedido chegou e queria saber se está tudo ok ou se precisa de alguma ajuda. Se estiver tudo ok gostaria de te pedir um grande favor, fazer a minha avaliação como vendedora, isso ajuda o site separar os bons dos maus vendedores, para que os compradores tenham o melhor atendimento possível. Um GRANDE ABRAÇO Lu : )"
   const r = await sendMessageToBuyer({ msg, userId, packId })
   return r
 }
